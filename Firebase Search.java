@@ -1,4 +1,4 @@
-package bypankaj.bookdex;
+package by.app;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +28,7 @@ public class FirebaseSearch extends AppCompatActivity {
     private ImageButton mSearchBtn;
 
     private RecyclerView mResultList;
-    private BlogAdapter mAdapter;
+    private ReferenceAdapter mAdapter;
     private final List<Reference> list =  new ArrayList<>();
 
     private DatabaseReference mDatabase;
@@ -36,7 +36,7 @@ public class FirebaseSearch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_search);
+        setContentView(R.layout.activity_search);
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Reference");
@@ -44,7 +44,7 @@ public class FirebaseSearch extends AppCompatActivity {
 
         mSearchField = (EditText) findViewById(R.id.search_field);
         mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
-        mAdapter = new BlogAdapter(list,this);
+        mAdapter = new ReferenceAdapter(list,this);
         mResultList = (RecyclerView) findViewById(R.id.result_list);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(this));
@@ -67,8 +67,8 @@ public class FirebaseSearch extends AppCompatActivity {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Blog recipies =  dataSnapshot.getValue(Blog.class);
-                list.add(recipies);
+                Reference reference =  dataSnapshot.getValue(Reference.class);
+                list.add(reference);
                 mAdapter.notifyDataSetChanged();
             }
 
